@@ -1,6 +1,6 @@
 # Snake Game made with Processing
 
-Classic Snake game written in Java
+Classic Snake game made with Processing
 
 ## Setup
 
