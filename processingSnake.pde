@@ -3,6 +3,7 @@ private Food food;
 private boolean gameOver = false;
 private int highscore = 0;
 
+
 /**
  * Setup function called once at startup
  */
@@ -19,11 +20,12 @@ void draw(){
   background(169,169,169);
 
   //Draw score
-  textSize(32);
+  textSize(width /25);
   fill(250,250,250);
   text("Score: " + snake.length, 10, 30); 
   
   //Update view if game is not yet over and snake still able to eat some food
+  
   if(gameOver == false){
     if(frameCount % 10 == 0){
       snake.update();
@@ -39,7 +41,7 @@ void draw(){
     }
 
     //Check if snake is hitting the wall
-    if(snake.position.x < 0 || snake.position.x + 10 > 800 || snake.position.y < 0 || snake.position.y+10 > 800){
+    if(snake.position.x < 0 || snake.position.x + 10 > width || snake.position.y < 0 || snake.position.y+10 > height){
       gameOver = true;
     }
     
@@ -56,10 +58,10 @@ void draw(){
       highscore = snake.length;
     }
     //Display Game Over and current highscore
-    textSize(32);
+    textSize( width /25);
     fill(250,250,250);
-    text("Game Over", 300, 350);
-    text("Highscore: " + highscore, 300, 400); 
+    text("Game Over", width/3, height/3.5);
+    text("Highscore: " + highscore, width/3, height/3.5 + width /25 ); 
   }
 }
 
