@@ -8,7 +8,7 @@ class Snake{
    * Snake constructor
    */
   public Snake(){
-    this.position = new PVector(400,400);
+    this.position = new PVector(width/2,height/2);
     this.velocity = new PVector(1,0);
     this.length = 0;
     this.body = new ArrayList<PVector>();
@@ -47,18 +47,26 @@ class Snake{
   public void useInput(){
     if(keyCode == LEFT){
       //Turn left
-      snake.velocity.x = -1;
-      snake.velocity.y = 0;
+      if (snake.velocity.x != -1 && snake.velocity.y != 0){
+        snake.velocity.x = -1;
+        snake.velocity.y = 0;
+      }
     } else if(keyCode == RIGHT){
       //Turn right
-      snake.velocity.x = 1;
-      snake.velocity.y = 0;
+      if (snake.velocity.x != 1 && snake.velocity.y != 0){
+        snake.velocity.x = 1;
+        snake.velocity.y = 0;
+      }
     } else if(keyCode == UP){
-      snake.velocity.x = 0;
-      snake.velocity.y = -1;
+      if (snake.velocity.x != 0 && snake.velocity.y != -1){
+        snake.velocity.x = 0;
+        snake.velocity.y = -1;
+      }
     } else if(keyCode == DOWN){
-      snake.velocity.x = 0;
-      snake.velocity.y = 1;
+      if (snake.velocity.x != 0 && snake.velocity.y != 1){
+        snake.velocity.x = 0;
+        snake.velocity.y = 1;
+      }
     }
   }
   
