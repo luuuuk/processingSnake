@@ -1,16 +1,19 @@
 private Snake snake;
 private Food food;
-private boolean gameOver = false;
+private Menu menu;
 private int highscore = 0;
+private String gameState = "startMenu";
+private int gameSpeed = 10;
 
 
 /**
  * Setup function called once at startup
  */
 void setup(){
-  size(600,600);
+  size(800,800);
   snake = new Snake();
   food = new Food();
+  menu = new Menu();
 }
 
 /**
@@ -18,17 +21,24 @@ void setup(){
  */
 void draw(){
   background(169,169,169);
-
-  //Draw score
-  textAlign(LEFT, TOP);
-  textSize(width /25);
-  fill(250,250,250);
-  text("Score: " + snake.length, 10, 5); 
+  
+  
+  //Start Menu
+  if(gameState == "startMenu"){
+    menu.show();
+    menu.update();
+  }
   
   //Update view if game is not yet over and snake still able to eat some food
   
-  if(gameOver == false){
-    if(frameCount % 10 == 0){
+  if(gameState == "game"){
+      //Draw score
+    textAlign(LEFT, TOP);
+    textSize(width /25);
+    fill(250,250,250);
+    text("Score: " + snake.length, 10, 5); 
+  
+    if(frameCount % gameSpeed == 0){
       snake.update();
     }
     snake.show();
@@ -43,18 +53,19 @@ void draw(){
 
     //Check if snake is hitting the wall
     if(snake.position.x < 0 || snake.position.x + 10 > width || snake.position.y < 0 || snake.position.y+10 > height){
-      gameOver = true;
+      gameState = "gameOver";
     }
     
     //Check if snake is trying to eat his body instead of food
     for(PVector tmpPos : snake.body){
       if(snake.position.equals(tmpPos)){
-        gameOver = true;
+        gameState = "gameOver";
       }
     }
     
-  } else {
+  } 
     //Check if new highscore reached
+    if (gameState == "gameOver"){
     if(snake.length > highscore){
       highscore = snake.length;
     }
@@ -64,30 +75,36 @@ void draw(){
     textAlign(CENTER, CENTER);
     text("Game Over \nHighscore: " + highscore, width/2, height/2);
     textSize( width / 30);
-    text("Press 'r' to restart \n Press 'e' to exit" , width/2, height*3/4);
+    text("Restart - Press '1'\nMenu - Press '2'\nExit - Press '3'" , width/2, height*3/4);
   }
+ 
 }
 
 /**
- * If Game is over mouse-click will restart game
+ * If Game is over player can choose to restart or exit
  */
-/*void mouseClicked(){
-  if(gameOver){
-    snake = new Snake();
-    food = new Food();
-    gameOver= false;
-  }
+ 
+public void changeGameState(String tempString){
+ gameState = tempString; 
 }
-*/
+
+public void changeSpeed(int tempSpeed){
+  gameSpeed = tempSpeed;
+}
+
 void keyPressed(){
-  if (gameOver && key == 'r' ){
+  if (gameState == "gameOver" && key == '1' ){
     snake = new Snake();
     food = new Food();
-    gameOver = false;
+    gameState = "game";
+  }  
+  else if (gameState == "gameOver" && key == '2' ){
+   gameState = "startMenu"; 
+   menu = new Menu(); //PROBLEM: when going back to the menu " 2 " is still saved as key therefore the programm instantly jumps to speed menu"
+
   }
-  if (gameOver && key == 'e'){
+  else if (gameState == "gameOver" && key == '3'){
      exit(); 
-  }
-    
+  }    
 }
 
