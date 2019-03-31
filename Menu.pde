@@ -3,13 +3,13 @@ class Menu{
   private String speed = "normal";
  
    /**
-     * Menu constructor
-     */
+    * Menu constructor
+    */
   public Menu(){
     menuState = "startMenu";
   }
   
-//Shows the chosen Menu
+  //Shows the chosen Menu
   public void show(){
     textSize(width/25);
     textAlign(CENTER,CENTER);
@@ -21,7 +21,9 @@ class Menu{
     }
   }
  
-  //Swaps between menus and executes actions in them
+  /**
+   * Swaps between menus and executes actions in them
+   */
   public void update(){
     if (menuState == "startMenu"){
       if (key == '1'){
@@ -51,14 +53,19 @@ class Menu{
   }
   
   
-//Show Main Menu
+  /**
+   * Show Main Menu
+   */
   public void showStartMenu(){
-  text("Start game - Press '1'\nChange Speed - Press '2'\nExit - Press '3'",width/2,height/2);
+    text("Start game - Press '1'\nChange Speed - Press '2'\nExit - Press '3'",width/2,height/2);
   }
-//Show Speed Menu  
+
+  /**
+   * Show Speed Menu
+   */  
   public void showSpeedMenu(){
-  text("Slow - Press '1'\nNormal - Press '2'\nSauschnell - Press '3'\nBack to Start Menu - Press '4'",width/2,height/2);
-  text("Speed : " + speed,width/2,height/10);
+    text("Slow - Press '1'\nNormal - Press '2'\nSauschnell - Press '3'\nBack to Start Menu - Press '4'",width/2,height/2);
+    text("Speed : " + speed,width/2,height/10);
   }
   
 }
