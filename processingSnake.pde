@@ -1,3 +1,7 @@
+import java.util.*;
+
+private XML scoreboardXML;
+private int noHighscores;
 private Snake snake;
 private Food food;
 private Menu menu;
@@ -14,6 +18,17 @@ void setup(){
   snake = new Snake();
   food = new Food();
   menu = new Menu();
+  
+  scoreboardXML = loadXML("scoreboard.xml");
+  XML[] scoreboard = scoreboardXML.getChildren("highscore");
+  noHighscores = scoreboard.length;
+  
+  for(int i = 0; i < noHighscores; i++){
+    int tmpHighscore = Integer.parseInt(scoreboard[i].getContent());
+    if(tmpHighscore > highscore){
+      highscore = tmpHighscore;
+    }
+  } 
 }
 
 /**
@@ -66,8 +81,11 @@ void draw(){
   } 
     //Check if new highscore reached
     if (gameState == "gameOver"){
-    if(snake.length > highscore){
-      highscore = snake.length;
+      if(snake.length > highscore){
+        highscore = snake.length;
+        XML newHighscore = scoreboardXML.addChild("highscore");
+        newHighscore.setContent(String.valueOf(highscore));
+        saveXML(scoreboardXML, "scoreboard.xml");
     }
     //Display Game Over and current highscore
     textSize( width /25);
@@ -85,21 +103,21 @@ void draw(){
  */
  
 public void changeGameState(String tempString){
- gameState = tempString; 
+    gameState = tempString; 
 }
 
 public void changeSpeed(int tempSpeed){
   gameSpeed = tempSpeed;
 }
 
-void keyPressed(){
+void keyReleased(){
   if (gameState == "gameOver" && key == '1' ){
     snake = new Snake();
     food = new Food();
     gameState = "game";
   }  
   else if (gameState == "gameOver" && key == '2' ){
-   gameState = "startMenu"; 
+   gameState = "startMenu";
    menu = new Menu(); //PROBLEM: when going back to the menu " 2 " is still saved as key therefore the programm instantly jumps to speed menu"
 
   }
@@ -107,4 +125,3 @@ void keyPressed(){
      exit(); 
   }    
 }
-
