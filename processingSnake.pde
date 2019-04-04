@@ -74,7 +74,7 @@ void draw(){
     //Check if snake is trying to eat his body instead of food
     for(PVector tmpPos : snake.body){
       if(snake.position.equals(tmpPos)){
-        gameState = "gameOver";
+        changeGameState("gameOver");
       }
     }
     
@@ -99,29 +99,36 @@ void draw(){
 }
 
 /**
- * If Game is over player can choose to restart or exit
+ * Function used to change the game state
+ * @param tmpString game state to change to
  */
- 
-public void changeGameState(String tempString){
-    gameState = tempString; 
+public void changeGameState(String tmpGameState){
+  gameState = tmpGameState; 
 }
 
-public void changeSpeed(int tempSpeed){
-  gameSpeed = tempSpeed;
+/**
+ * Function to change the game speed
+ * @param tmpSpeed game speed to change to
+ */
+public void changeSpeed(int tmpSpeed){
+  gameSpeed = tmpSpeed;
 }
 
+/**
+ * Executed when a key is released after being pressed, the corresponding value will be stored in variable *key*
+ */
 void keyReleased(){
   if (gameState == "gameOver" && key == '1' ){
     snake = new Snake();
     food = new Food();
-    gameState = "game";
+    changeGameState("game");
   }  
   else if (gameState == "gameOver" && key == '2' ){
-   gameState = "startMenu";
-   menu = new Menu(); //PROBLEM: when going back to the menu " 2 " is still saved as key therefore the programm instantly jumps to speed menu"
+    changeGameState("startMenu");
+    menu = new Menu(); //PROBLEM: when going back to the menu " 2 " is still saved as key therefore the programm instantly jumps to speed menu"
 
   }
   else if (gameState == "gameOver" && key == '3'){
-     exit(); 
+    exit(); 
   }    
 }

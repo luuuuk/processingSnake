@@ -8,12 +8,14 @@ class Menu{
     */
   public Menu(){
     menuState = "startMenu";
-
+    
     scoreboardXML = loadXML("scoreboard.xml");
 
   }
   
-  //Shows the chosen Menu
+  /**
+   * Shows the chosen Menu
+   */
   public void show(){
     textSize(width/25);
     textAlign(CENTER,CENTER);
@@ -46,11 +48,11 @@ class Menu{
           break;
 
           case '2':
-            menuState = "speedMenu";
+            changeMenuState("speedMenu");
           break;
 
           case '3':
-            menuState = "highscoreMenu";
+            changeMenuState("highscoreMenu");
           break;
 
           case '5':
@@ -76,14 +78,14 @@ class Menu{
           break;
 
           case '4':
-            menuState = "startMenu";
+            changeMenuState("startMenu");;
           break;
         }
       break;
 
       case "highscoreMenu":
         if(key == '4'){
-          menuState = "startMenu";
+          changeMenuState("startMenu");
         }
     }
   }
@@ -112,4 +114,11 @@ class Menu{
     text("1 - " + scoreboard[scoreboard.length-1].getContent() +"\n2 - " + scoreboard[scoreboard.length-2].getContent() + "\n3 - " + scoreboard[scoreboard.length-3].getContent() + "\n\nBack to Start Menu - Press '4'",width/2,height/2);
   }
   
+  /**
+   * Function used to change the menu state
+   * @param tmpMenuState menu state to change to
+   */
+  public void changeMenuState(String tmpMenuState){
+    menuState = tmpMenuState;
+  }
 }
